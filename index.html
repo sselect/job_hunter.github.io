@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Job Hunter</title>
+    <meta
+      name="description"
+      content="Job Hunter automatiza busqueda, scoring, seguimiento y postulaciones laborales con dashboard privado."
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: #111827;
+        background: #f6f8fb;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .hero {
+        min-height: 82vh;
+        display: grid;
+        align-items: center;
+        color: white;
+        background:
+          linear-gradient(90deg, rgba(7, 15, 35, 0.96), rgba(15, 79, 116, 0.78)),
+          url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1900&q=82");
+        background-position: center;
+        background-size: cover;
+      }
+
+      .wrap {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 22px 0;
+      }
+
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .brand {
+        font-size: 22px;
+        font-weight: 900;
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        border-radius: 999px;
+        padding: 0 16px;
+        text-decoration: none;
+        font-weight: 800;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .copy {
+        width: min(780px, 100%);
+        padding-top: 54px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.8rem, 8vw, 6.3rem);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 660px;
+        margin: 24px 0 0;
+        color: #dbeafe;
+        font-size: clamp(1rem, 2vw, 1.23rem);
+        line-height: 1.6;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .primary {
+        background: #2563eb;
+        border-color: #2563eb;
+      }
+
+      .secondary {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .status-band {
+        margin-top: -74px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        min-height: 112px;
+        background: white;
+        border: 1px solid #dbe5f2;
+        border-radius: 8px;
+        padding: 18px;
+        box-shadow: 0 16px 36px rgba(15, 23, 42, 0.1);
+      }
+
+      .label {
+        color: #64748b;
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .value {
+        margin-top: 10px;
+        color: #0f3b7a;
+        font-size: 28px;
+        font-weight: 900;
+      }
+
+      .section {
+        padding: 46px 0 64px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+      }
+
+      .panel {
+        background: white;
+        border: 1px solid #dbe5f2;
+        border-radius: 8px;
+        padding: 22px;
+      }
+
+      .panel h2 {
+        margin: 0 0 12px;
+        font-size: 22px;
+      }
+
+      .panel p,
+      .panel li {
+        color: #475569;
+        line-height: 1.55;
+      }
+
+      @media (max-width: 840px) {
+        .cards,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .status-band {
+          margin-top: 18px;
+        }
+
+        .nav-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <nav>
+        <div class="wrap nav-inner">
+          <div class="brand">Job Hunter</div>
+          <div class="nav-actions">
+            <a class="pill" id="dashboard-link" href="#">Dashboard privado</a>
+            <a class="pill" href="https://github.com/sselect/Job_Hunter">Codigo</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="wrap copy">
+        <h1>Job Hunter</h1>
+        <p class="lead">
+          Busqueda laboral automatizada con scoring, API REST, seguimiento de postulaciones
+          y dashboard privado protegido con Supabase Auth.
+        </p>
+        <div class="actions">
+          <a class="pill primary" id="primary-dashboard-link" href="#">Abrir dashboard</a>
+          <a class="pill secondary" href="#arquitectura">Ver arquitectura</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="status-band">
+      <div class="wrap cards">
+        <article class="card">
+          <div class="label">Estado</div>
+          <div class="value" id="api-status">offline</div>
+        </article>
+        <article class="card">
+          <div class="label">Ofertas vistas</div>
+          <div class="value" id="jobs-total">--</div>
+        </article>
+        <article class="card">
+          <div class="label">Pipeline</div>
+          <div class="value" id="refresh-state">--</div>
+        </article>
+        <article class="card">
+          <div class="label">Auth</div>
+          <div class="value">Supabase</div>
+        </article>
+      </div>
+    </section>
+
+    <main class="section" id="arquitectura">
+      <div class="wrap grid">
+        <section class="panel">
+          <h2>Operacion</h2>
+          <p>
+            El backend FastAPI corre el scraper, persiste resultados en Postgres/Supabase y
+            entrega endpoints versionados para dashboard, metricas y postulaciones.
+          </p>
+        </section>
+        <section class="panel">
+          <h2>Producto</h2>
+          <p>
+            El dashboard privado permite revisar ofertas, guardar seguimientos y operar
+            postulaciones sin exponer datos personales en la landing publica.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <script src="./config.js"></script>
+    <script>
+      const config = window.JOB_HUNTER_CONFIG || {};
+      const apiBase = (config.apiBaseUrl || "").replace(/\/$/, "");
+      const dashboardUrl = apiBase ? `${apiBase}/dashboard` : "#";
+      document.getElementById("dashboard-link").href = dashboardUrl;
+      document.getElementById("primary-dashboard-link").href = dashboardUrl;
+
+      async function refreshStatus() {
+        if (!apiBase) return;
+        try {
+          const response = await fetch(`${apiBase}/api/public/status`, { cache: "no-store" });
+          const status = await response.json();
+          document.getElementById("api-status").textContent = status.status || "online";
+          document.getElementById("jobs-total").textContent = status.total_jobs_seen ?? 0;
+          document.getElementById("refresh-state").textContent = status.running
+            ? "running"
+            : status.last_status || "idle";
+        } catch (error) {
+          document.getElementById("api-status").textContent = "offline";
+        }
+      }
+
+      refreshStatus();
+      setInterval(refreshStatus, 30000);
+    </script>
+  </body>
+</html>
